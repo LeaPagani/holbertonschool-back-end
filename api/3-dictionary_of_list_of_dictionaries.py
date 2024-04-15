@@ -23,3 +23,6 @@ for user in employee_data_json:
 
 with open('todo_all_employees.json', 'w') as jsonfile:
     json.dump(all_tasks, jsonfile)
+
+if __name__ == '__main__':
+    pass

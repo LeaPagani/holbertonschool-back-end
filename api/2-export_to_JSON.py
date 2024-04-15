@@ -24,3 +24,6 @@ with open(f'{employee_id}.json', 'w') as jsonfile:
             "completed": task['completed'],
             "username": employee_username
         } for task in todo_data_json ]}, jsonfile)
+
+if __name__ == '__main__':
+    pass

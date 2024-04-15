@@ -23,3 +23,6 @@ print("Employee " + employee_name + " is done with tasks(" +
 for task in todo_data_json:
       if task['completed']:
             print('\t ' + task['title'])
+
+if __name__ == '__main__':
+    pass
