@@ -11,7 +11,8 @@ import sys
 employee_id = sys.argv[1]
 
 # Get request to api for employee data
-employee_data = requests.get('https://jsonplaceholder.typicode.com/users/' + employee_id)
+employee_data = requests.get(
+    'https://jsonplaceholder.typicode.com/users/' + employee_id)
 
 # Parse data as json
 employee_data_json = employee_data.json()
@@ -20,7 +21,8 @@ employee_data_json = employee_data.json()
 employee_name = employee_data_json['name']
 
 # Get request to api for todo data
-todo_data = requests.get('https://jsonplaceholder.typicode.com/todos?userId=' + employee_id)
+todo_data = requests.get(
+    'https://jsonplaceholder.typicode.com/todos?userId=' + employee_id)
 
 # Parse data as json
 todo_data_json = todo_data.json()
@@ -29,7 +31,7 @@ todo_data_json = todo_data.json()
 total_todos = str(len(todo_data_json))
 
 # Calculate completed tasks
-completed_todos = str(sum(1 for task in todo_data_json if task ['completed']))
+completed_todos = str(sum(1 for task in todo_data_json if task['completed']))
 
 # Print output with provided format
 print("Employee " + employee_name + " is done with tasks(" +
@@ -37,10 +39,10 @@ print("Employee " + employee_name + " is done with tasks(" +
 
 # List completed tasks titles
 for task in todo_data_json:
-      if task['completed']:
-            print('\t ' + task['title'])
+    if task['completed']:
+        print('\t ' + task['title'])
 
 # Check if the script is being run directly as the main program
 if __name__ == '__main__':
-      # Code inside this block will only run if this script is executed directly
-      pass
+    # Code inside this block will only run if this script is executed directly
+    pass

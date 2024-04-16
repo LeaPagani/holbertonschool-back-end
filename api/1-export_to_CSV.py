@@ -11,7 +11,8 @@ import sys
 employee_id = sys.argv[1]
 
 # Get request to api for employee data
-employee_data = requests.get('https://jsonplaceholder.typicode.com/users/' + employee_id)
+employee_data = requests.get(
+     'https://jsonplaceholder.typicode.com/users/' + employee_id)
 
 # Parse data as json
 employee_data_json = employee_data.json()
@@ -20,7 +21,8 @@ employee_data_json = employee_data.json()
 employee_name = employee_data_json['name']
 
 # Get request to api for todo data
-todo_data = requests.get('https://jsonplaceholder.typicode.com/todos?userId=' + employee_id)
+todo_data = requests.get(
+     'https://jsonplaceholder.typicode.com/todos?userId=' + employee_id)
 
 # Parse data as json
 todo_data_json = todo_data.json()

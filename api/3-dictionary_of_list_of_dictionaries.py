@@ -21,7 +21,8 @@ for user in employee_data_json:
     user_id = str(user['id'])
     user_name = user['username']
     # Get request to api for todo data of current user
-    todo_data = requests.get('https://jsonplaceholder.typicode.com/todos?userId=' + user_id)
+    todo_data = requests.get('https://jsonplaceholder.typicode.com/todos?userId=' +
+                            user_id)
     # Parse data as json
     todo_data_json = todo_data.json()
     # Task list with provided format
