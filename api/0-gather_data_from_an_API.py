@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-This python script uses a api to make a program that given a 
+This python script uses a api to make a program that given a
 employee ID, returns information about his task list progress
 """
 import json
@@ -17,6 +17,7 @@ def get_employee_data(employee_id):
     # Get employee name from key name
     employee_name = employee_data_json['name']
 
+
 def get_todo_data(employee_id):
     # Get request to api for todo data
     todo_data = requests.get(
@@ -26,7 +27,9 @@ def get_todo_data(employee_id):
     # Use len to calculate total number of tasks
     total_todos = str(len(todo_data_json))
     # Calculate completed tasks
-    completed_todos = str(sum(1 for task in todo_data_json if task['completed']))
+    completed_todos = str(
+        sum(1 for task in todo_data_json if task['completed']))
+
 
 def print_formatted_data(employee_id):
     # Print output with provided format
@@ -36,6 +39,7 @@ def print_formatted_data(employee_id):
     for task in todo_data_json:
         if task['completed']:
             print('\t ' + task['title'])
+
 
 # Check if the script is being run directly as the main program
 if __name__ == "__main__":
