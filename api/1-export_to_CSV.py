@@ -1,49 +1,23 @@
 #!/usr/bin/python3
-"""
-Python script to export data in the CSV format
-"""
-
+"""Returns to-do list information about an employee based on their ID."""
 import csv
-import requests
-import sys
+from requests import get
+from sys import argv
 
+if __name__ == '__main__':
+    # Base URL for the JSONPlaceholder API
+    APIurl = "https://jsonplaceholder.typicode.com"
 
-# Check if the script is being run directly as the main program
-if __name__ == "__main__":
-    # Code inside this block will only run if this script is executed directly
-    if len(sys.argv) < 2:
-        print("Usage: python3 0-gather_data_from_an_API.py <employee_id>")
-    else:
-        try:
-            # Get the employee id from command line
-            employee_id = sys.argv[1]
+    # Fetch employee data and to-do list from the API
+    employee = get(APIurl + "/users/{}".format(argv[1])).json()
+    to_do_list = get(APIurl + "/todos", params={"userId": argv[1]}).json()
 
-            # Get request to api for employee data
-            employee_data = requests.get(
-                'https://jsonplaceholder.typicode.com/users/' + employee_id)
+    # Extract the username of the employee
+    username = employee.get("username")
 
-            # Parse data as json
-            employee_data_json = employee_data.json()
-
-            # Get employee name from key name
-            employee_name = employee_data_json['name']
-
-            # Get request to api for todo data
-            todo_data = requests.get(
-                'https://jsonplaceholder.typicode.com/todos?userId=' +
-                employee_id)
-
-            # Parse data as json
-            todo_data_json = todo_data.json()
-
-            # Open csvfile with name based on the employeeID and w data
-            with open(f'{employee_id}.csv', 'w') as csvfile:
-                # Create a CSV writer object, quoting all fields
-                writer = csv.writer(csvfile, quoting=csv.QUOTE_ALL)
-                # Iterate over each task in the todo_data_json list
-                for task in todo_data_json:
-                    writer.writerow(
-                        [employee_id, employee_name, task['completed'],
-                         task['title']])
-        except ValueError:
-            print("Employee ID must be an integer")
+    # Write to-do list data to a CSV file named after the employee ID
+    with open("{}.csv".format(argv[1]), "w", newline="") as csvfile:
+        writeCSV = csv.writer(csvfile, quoting=csv.QUOTE_ALL)
+        # Write each task as a row in the CSV file
+        [writeCSV.writerow([argv[1], username, i.get("completed"),
+                            i.get("title")]) for i in to_do_list]
