@@ -16,6 +16,7 @@ def get_employee_data(employee_id):
     employee_data_json = employee_data.json()
     # Get employee name from key name
     employee_name = employee_data_json['name']
+    return employee_name
 
 
 def get_todo_data(employee_id):
@@ -29,9 +30,11 @@ def get_todo_data(employee_id):
     # Calculate completed tasks
     completed_todos = str(
         sum(1 for task in todo_data_json if task['completed']))
+    return total_todos, completed_todos
 
 
-def print_formatted_data(employee_id):
+def print_formatted_data(
+        employee_name, total_todos, completed_todos, todo_data_json):
     # Print output with provided format
     print("Employee " + employee_name + " is done with tasks(" +
           completed_todos + "/" + total_todos + "):")
@@ -48,7 +51,13 @@ if __name__ == "__main__":
         print("Usage: python3 0-gather_data_from_an_API.py <employee_id>")
     else:
         try:
-            employee_id = int(sys.argv[1])
-            display_todo_progress(employee_id)
+            employee_id = sys.argv[1]
+            employee_name = get_employee_data(employee_id)
+            total_todos, completed_todos = get_todo_data(employee_id)
+            todo_data = requests.get(
+                'https://jsonplaceholder.typicode.com/todos?userId=' +
+                employee_id).json()
+            print_formatted_data(
+                employee_name, total_todos, completed_todos, todo_data)
         except ValueError:
             print("Employee ID must be an integer")
