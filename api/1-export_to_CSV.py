@@ -28,14 +28,15 @@ todo_data = requests.get(
 todo_data_json = todo_data.json()
 
 # Open a csv file with the name based on the employee ID and write the data
-with open (f'{employee_id}.csv', 'w') as csvfile:
+with open(f'{employee_id}.csv', 'w') as csvfile:
     # Create a CSV writer object, quoting all fields
     writer = csv.writer(csvfile, quoting=csv.QUOTE_ALL)
     # Iterate over each task in the todo_data_json list
     for task in todo_data_json:
-        writer.writerow([employee_id, employee_name, task['completed'], task['title']])
+        writer.writerow(
+             [employee_id, employee_name, task['completed'], task['title']])
 
 # Check if the script is being run directly as the main program
 if __name__ == '__main__':
-      # Code inside this block will only run if this script is executed directly
-      pass
+    # Code inside this block will only run if this script is executed directly
+    pass
