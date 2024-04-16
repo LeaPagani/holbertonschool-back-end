@@ -8,9 +8,6 @@ import requests
 import sys
 
 
-# Get the employee id from command line
-employee_id = sys.argv[1]
-
 def get_employee_data(employee_id):
     # Get request to api for employee data
     employee_data = requests.get(
